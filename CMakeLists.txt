@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.15)
-project(OpTests)
+project(CvStarter)
 
 find_package(OpenCV REQUIRED)
 

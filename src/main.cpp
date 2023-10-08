@@ -3,17 +3,21 @@
 #include <iostream>
 
 using namespace cv;
-int main()
+using namespace std;
+const char* window_name1 = "Sample template";
+
+int main(int argc, const char** argv)
 {
-  std::cout << "start" << std::endl;
   std::string image_path = "../assets/plane.png";
-  Mat img = imread(image_path, IMREAD_COLOR);
+  auto image = imread(image_path, IMREAD_COLOR);
+  if (image.empty())
+  {
+      printf("Cannot read image file: %s\n", image_path.c_str());
+      return -1;
+  }
+  namedWindow(window_name1, 1);
+  imshow(window_name1, image);
 
-  std::cout << "size = " << img.size() << std::endl;
-  namedWindow( "Display window", WINDOW_NORMAL );
-  imshow("Display window", img);
-
-  std::cout << "end" << std::endl;
-  int k = getchar(); // Wait for a keystroke in the window
+  waitKey(0);
   return 0;
 }
