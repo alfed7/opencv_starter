@@ -8,16 +8,20 @@ const char* window_name1 = "Sample template";
 
 int main(int argc, const char** argv)
 {
-  std::string image_path = "../assets/plane.png";
-  auto image = imread(image_path, IMREAD_COLOR);
-  if (image.empty())
+  CommandLineParser parser( argc, argv, "{@input | plane.png | input image}" );
+  auto src = imread( samples::findFile( parser.get<String>( "@input" ) ), IMREAD_COLOR );
+
+  if( src.empty() )
   {
-      printf("Cannot read image file: %s\n", image_path.c_str());
-      return -1;
+    std::cout << "Could not open or find the image!\n" << std::endl;
+    std::cout << "Usage: " << argv[0] << " <Input image>" << std::endl;
+    return -1;
   }
+
   namedWindow(window_name1, 1);
-  imshow(window_name1, image);
+  imshow(window_name1, src);
 
   waitKey(0);
+  destroyAllWindows();
   return 0;
 }
